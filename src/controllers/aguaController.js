@@ -1,6 +1,7 @@
 const usuariosPermitidos = {
-  A1B2C3D4: 5.0,
-  F4E3D2C1: 3.5,
+ "8364EA13": { litros: 10 },
+  "138E2D29": { litros: 5.5 },
+  "CAFEBABE": { litros: 8 },
 }
 
 export const verificarUID = (req, res) => {
@@ -11,6 +12,6 @@ export const verificarUID = (req, res) => {
       .status(401)
       .json({ status: "erro", mensagem: "UID inválido ou não autorizado" })
   }
-
-  res.json({ status: "ok", litros: usuariosPermitidos[uid] })
+console.log('uid', uid)
+  res.json({ status: "ok", litros: usuariosPermitidos[uid.toUpperCase().trim()].litros })
 } 

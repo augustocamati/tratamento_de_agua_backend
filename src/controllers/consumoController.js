@@ -12,3 +12,8 @@ export const registrarConsumo = (req, res) => {
 
   res.json({ status: "ok", mensagem: "Consumo registrado com sucesso" })
 }
+
+
+export const listarConsumo = (req, res) => {
+  res.json(consumos)
+}
