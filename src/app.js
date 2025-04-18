@@ -2,8 +2,8 @@ import express, { json } from "express"
 import cors from "cors"
 import helmet from "helmet"
 
-import authRoutes from "./routes/authRoutes"
-import sensorRoutes from "./routes/sensorRoutes"
+import authRoutes from "./routes/authRoutes.js"
+import sensorRoutes from "./routes/sensorRoutes.js"
 
 const app = express()
 
