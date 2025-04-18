@@ -1,5 +1,5 @@
-import { verify } from "jsonwebtoken"
-import { prisma } from "../config/prisma"
+import jwt from "jsonwebtoken"
+import prisma from "../config/prisma.js"
 const JWT_SECRET = process.env.JWT_SECRET || "sua_chave_secreta_aqui"
 
 export default async function authenticate(req, res, next) {
@@ -10,9 +10,9 @@ export default async function authenticate(req, res, next) {
     }
 
     const token = authHeader.split(" ")[1]
-    const decoded = verify(token, JWT_SECRET)
+    const decoded = jwt.verify(token, JWT_SECRET)
 
-    const user = await prisma.findUnique({
+    const user = await prisma.user.findUnique({
       where: { id: decoded.userId },
     })
 
