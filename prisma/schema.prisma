@@ -1,0 +1,113 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+// schema.prisma
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  name      String
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  resolvedAlerts Alert[] @relation("ResolvedBy")
+}
+
+model Station {
+  id          Int         @id @default(autoincrement())
+  name        String
+  location    String
+  description String?
+  apiKey      String      @unique
+  status      StationStatus @default(OFFLINE)
+  lastReading DateTime?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  sensorData  SensorData[]
+  alerts      Alert[]
+}
+
+model SensorData {
+  id              Int      @id @default(autoincrement())
+  stationId       Int
+  timestamp       DateTime @default(now())
+  
+  turbidity       Float
+  turbidityUnit   String   @default("NTU")
+  turbidityStatus SensorStatus @default(NORMAL)
+  
+  tds             Float
+  tdsUnit         String   @default("ppm")
+  tdsStatus       SensorStatus @default(NORMAL)
+  
+  flowRate        Float
+  flowRateUnit    String   @default("L/min")
+  flowRateStatus  SensorStatus @default(NORMAL)
+  
+  totalFlow       Float
+  totalFlowUnit   String   @default("m³")
+
+  station         Station  @relation(fields: [stationId], references: [id])
+  alerts          Alert[]
+}
+
+model Alert {
+  id           Int          @id @default(autoincrement())
+  stationId    Int
+  sensorDataId Int?
+  type         AlertType
+  message      String
+  status       AlertStatus  @default(PENDING)
+  createdAt    DateTime     @default(now())
+  resolvedAt   DateTime?
+  resolvedById Int?
+
+  station      Station      @relation(fields: [stationId], references: [id])
+  sensorData   SensorData?  @relation(fields: [sensorDataId], references: [id])
+  resolvedBy   User?        @relation("ResolvedBy", fields: [resolvedById], references: [id])
+}
+
+enum Role {
+  USER
+  STATION_MANAGER
+  ADMIN
+}
+
+enum StationStatus {
+  ONLINE
+  OFFLINE
+  MAINTENANCE
+}
+
+enum SensorStatus {
+  NORMAL
+  WARNING
+  CRITICAL
+}
+
+enum AlertType {
+  WARNING
+  CRITICAL
+  SYSTEM
+}
+
+enum AlertStatus {
+  PENDING
+  RESOLVED
+  IGNORED
+}
