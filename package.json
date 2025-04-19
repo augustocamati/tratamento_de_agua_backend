@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon server.js",
+     "vercel-build": "yarn prisma generate && yarn prisma migrate deploy",
     "seed": "node prisma/seed.js"
   },
   "keywords": [],
