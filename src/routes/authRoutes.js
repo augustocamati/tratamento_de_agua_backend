@@ -90,7 +90,7 @@ router.post(
 )
 
 // Perfil
-router.get("/me", authenticate, async (req, res) => {
+router.get("/me", async (req, res) => {
   res.json({
     user: {
       id: req.user.id,
