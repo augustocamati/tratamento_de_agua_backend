@@ -127,6 +127,14 @@ exports.Prisma.UserScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.CardScalarFieldEnum = {
+  id: 'id',
+  uid: 'uid',
+  userId: 'userId',
+  description: 'description',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.StationScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -214,6 +222,7 @@ exports.AlertStatus = exports.$Enums.AlertStatus = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  Card: 'Card',
   Station: 'Station',
   SensorData: 'SensorData',
   Alert: 'Alert'

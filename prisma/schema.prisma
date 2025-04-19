@@ -25,6 +25,16 @@ model User {
   updatedAt DateTime @updatedAt
 
   resolvedAlerts Alert[] @relation("ResolvedBy")
+  cards          Card[]
+}
+
+model Card {
+  id          Int      @id @default(autoincrement())
+  uid         String   @unique
+  userId      Int
+  description String?
+  createdAt   DateTime @default(now())
+  user        User     @relation(fields: [userId], references: [id])
 }
 
 model Station {
