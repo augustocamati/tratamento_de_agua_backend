@@ -18,7 +18,9 @@ app.use(json())
 // router.use("/sensors", sensorRoutes)
 // router.use("/stations", stationRoutes)
 // router.use("/reports", reportRoutes)
-
+app.get("/", (req, res) => {
+  res.json({status:"ok",message:"API funcionando na Vercel!"})
+})
 app.use("/api/cards", cardRoutes)
 app.use("/api/alerts", alertRoutes)
 app.use("/api/auth", authRoutes)
