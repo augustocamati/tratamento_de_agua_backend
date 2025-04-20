@@ -3,7 +3,6 @@ import { body, validationResult } from "express-validator"
 import { hash, compare } from "bcryptjs"
 import jwt from "jsonwebtoken"
 import prisma from "../config/prisma.js"
-import authenticate from "../middlewares/authenticate.js"
 
 const router = Router()
 const JWT_SECRET = process.env.JWT_SECRET || "sua_chave_secreta_aqui"
