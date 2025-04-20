@@ -13,6 +13,7 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
 // schema.prisma
 
 model User {
@@ -25,71 +26,86 @@ model User {
   updatedAt DateTime @updatedAt
 
   resolvedAlerts Alert[] @relation("ResolvedBy")
-  cards          Card[]
+  
 }
 
 model Card {
-  id          Int      @id @default(autoincrement())
-  uid         String   @unique
-  userId      Int
-  description String?
-  createdAt   DateTime @default(now())
-  user        User     @relation(fields: [userId], references: [id])
+  id           Int      @id @default(autoincrement())
+  uid          String   @unique
+  proprietario String
+  tipo         String   @default("Residencial")
+  saldo        Float
+  status       String   @default("Ativo")
+  description  String?
+  createdAt    DateTime @default(now())
+
+  recargas     Recarga[] // 👈 nova relação
+}
+model Recarga {
+  id           Int      @id @default(autoincrement())
+  cartaoId     Int
+  quantidade   Float
+  valor        Float
+  metodo       String
+  data         DateTime @default(now())
+
+  cartao Card @relation(fields: [cartaoId], references: [id])
 }
 
+
 model Station {
-  id          Int         @id @default(autoincrement())
+  id          Int           @id @default(autoincrement())
   name        String
   location    String
   description String?
-  apiKey      String      @unique
+  apiKey      String        @unique
   status      StationStatus @default(OFFLINE)
   lastReading DateTime?
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
 
-  sensorData  SensorData[]
-  alerts      Alert[]
+  sensorData SensorData[]
+  alerts     Alert[]
 }
 
 model SensorData {
-  id              Int      @id @default(autoincrement())
-  stationId       Int
-  timestamp       DateTime @default(now())
-  
-  turbidity       Float
-  turbidityUnit   String   @default("NTU")
-  turbidityStatus SensorStatus @default(NORMAL)
-  
-  tds             Float
-  tdsUnit         String   @default("ppm")
-  tdsStatus       SensorStatus @default(NORMAL)
-  
-  flowRate        Float
-  flowRateUnit    String   @default("L/min")
-  flowRateStatus  SensorStatus @default(NORMAL)
-  
-  totalFlow       Float
-  totalFlowUnit   String   @default("m³")
+  id        Int      @id @default(autoincrement())
+  stationId Int
+  timestamp DateTime @default(now())
 
-  station         Station  @relation(fields: [stationId], references: [id])
-  alerts          Alert[]
+  turbidity       Float
+  turbidityUnit   String       @default("NTU")
+  turbidityStatus SensorStatus @default(NORMAL)
+
+  tds       Float
+  tdsUnit   String       @default("ppm")
+  tdsStatus SensorStatus @default(NORMAL)
+
+  flowRate       Float
+  flowRateUnit   String       @default("L/min")
+  flowRateStatus SensorStatus @default(NORMAL)
+
+  totalFlow     Float
+  totalFlowUnit String @default("m³")
+
+  station Station @relation(fields: [stationId], references: [id])
+  alerts  Alert[]
 }
 
 model Alert {
-  id           Int          @id @default(autoincrement())
+  id           Int         @id @default(autoincrement())
   stationId    Int
   sensorDataId Int?
   type         AlertType
   message      String
-  status       AlertStatus  @default(PENDING)
-  createdAt    DateTime     @default(now())
+  status       AlertStatus @default(PENDING)
+  createdAt    DateTime    @default(now())
   resolvedAt   DateTime?
   resolvedById Int?
 
-  station      Station      @relation(fields: [stationId], references: [id])
-  sensorData   SensorData?  @relation(fields: [sensorDataId], references: [id])
-  resolvedBy   User?        @relation("ResolvedBy", fields: [resolvedById], references: [id])
+  station    Station     @relation(fields: [stationId], references: [id])
+  sensorData SensorData? @relation(fields: [sensorDataId], references: [id])
+  resolvedBy User?       @relation("ResolvedBy", fields: [resolvedById], references: [id])
 }
 
 enum Role {
