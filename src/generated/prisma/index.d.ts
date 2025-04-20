@@ -24,6 +24,11 @@ export type User = $Result.DefaultSelection<Prisma.$UserPayload>
  */
 export type Card = $Result.DefaultSelection<Prisma.$CardPayload>
 /**
+ * Model Recarga
+ * 
+ */
+export type Recarga = $Result.DefaultSelection<Prisma.$RecargaPayload>
+/**
  * Model Station
  * 
  */
@@ -253,6 +258,16 @@ export class PrismaClient<
     * ```
     */
   get card(): Prisma.CardDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.recarga`: Exposes CRUD operations for the **Recarga** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Recargas
+    * const recargas = await prisma.recarga.findMany()
+    * ```
+    */
+  get recarga(): Prisma.RecargaDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.station`: Exposes CRUD operations for the **Station** model.
@@ -725,6 +740,7 @@ export namespace Prisma {
   export const ModelName: {
     User: 'User',
     Card: 'Card',
+    Recarga: 'Recarga',
     Station: 'Station',
     SensorData: 'SensorData',
     Alert: 'Alert'
@@ -746,7 +762,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "card" | "station" | "sensorData" | "alert"
+      modelProps: "user" | "card" | "recarga" | "station" | "sensorData" | "alert"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -895,6 +911,80 @@ export namespace Prisma {
           count: {
             args: Prisma.CardCountArgs<ExtArgs>
             result: $Utils.Optional<CardCountAggregateOutputType> | number
+          }
+        }
+      }
+      Recarga: {
+        payload: Prisma.$RecargaPayload<ExtArgs>
+        fields: Prisma.RecargaFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RecargaFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecargaPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RecargaFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecargaPayload>
+          }
+          findFirst: {
+            args: Prisma.RecargaFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecargaPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RecargaFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecargaPayload>
+          }
+          findMany: {
+            args: Prisma.RecargaFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecargaPayload>[]
+          }
+          create: {
+            args: Prisma.RecargaCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecargaPayload>
+          }
+          createMany: {
+            args: Prisma.RecargaCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RecargaCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecargaPayload>[]
+          }
+          delete: {
+            args: Prisma.RecargaDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecargaPayload>
+          }
+          update: {
+            args: Prisma.RecargaUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecargaPayload>
+          }
+          deleteMany: {
+            args: Prisma.RecargaDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RecargaUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.RecargaUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecargaPayload>[]
+          }
+          upsert: {
+            args: Prisma.RecargaUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecargaPayload>
+          }
+          aggregate: {
+            args: Prisma.RecargaAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRecarga>
+          }
+          groupBy: {
+            args: Prisma.RecargaGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RecargaGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RecargaCountArgs<ExtArgs>
+            result: $Utils.Optional<RecargaCountAggregateOutputType> | number
           }
         }
       }
@@ -1206,6 +1296,7 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     user?: UserOmit
     card?: CardOmit
+    recarga?: RecargaOmit
     station?: StationOmit
     sensorData?: SensorDataOmit
     alert?: AlertOmit
@@ -1304,12 +1395,10 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     resolvedAlerts: number
-    cards: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     resolvedAlerts?: boolean | UserCountOutputTypeCountResolvedAlertsArgs
-    cards?: boolean | UserCountOutputTypeCountCardsArgs
   }
 
   // Custom InputTypes
@@ -1330,11 +1419,35 @@ export namespace Prisma {
     where?: AlertWhereInput
   }
 
+
   /**
-   * UserCountOutputType without action
+   * Count Type CardCountOutputType
    */
-  export type UserCountOutputTypeCountCardsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: CardWhereInput
+
+  export type CardCountOutputType = {
+    recargas: number
+  }
+
+  export type CardCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    recargas?: boolean | CardCountOutputTypeCountRecargasArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CardCountOutputType without action
+   */
+  export type CardCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CardCountOutputType
+     */
+    select?: CardCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CardCountOutputType without action
+   */
+  export type CardCountOutputTypeCountRecargasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RecargaWhereInput
   }
 
 
@@ -1628,7 +1741,6 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     resolvedAlerts?: boolean | User$resolvedAlertsArgs<ExtArgs>
-    cards?: boolean | User$cardsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1665,7 +1777,6 @@ export namespace Prisma {
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "name" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     resolvedAlerts?: boolean | User$resolvedAlertsArgs<ExtArgs>
-    cards?: boolean | User$cardsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1675,7 +1786,6 @@ export namespace Prisma {
     name: "User"
     objects: {
       resolvedAlerts: Prisma.$AlertPayload<ExtArgs>[]
-      cards: Prisma.$CardPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -2080,7 +2190,6 @@ export namespace Prisma {
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     resolvedAlerts<T extends User$resolvedAlertsArgs<ExtArgs> = {}>(args?: Subset<T, User$resolvedAlertsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AlertPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    cards<T extends User$cardsArgs<ExtArgs> = {}>(args?: Subset<T, User$cardsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CardPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2529,30 +2638,6 @@ export namespace Prisma {
   }
 
   /**
-   * User.cards
-   */
-  export type User$cardsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Card
-     */
-    select?: CardSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Card
-     */
-    omit?: CardOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CardInclude<ExtArgs> | null
-    where?: CardWhereInput
-    orderBy?: CardOrderByWithRelationInput | CardOrderByWithRelationInput[]
-    cursor?: CardWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: CardScalarFieldEnum | CardScalarFieldEnum[]
-  }
-
-  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2585,18 +2670,21 @@ export namespace Prisma {
 
   export type CardAvgAggregateOutputType = {
     id: number | null
-    userId: number | null
+    saldo: number | null
   }
 
   export type CardSumAggregateOutputType = {
     id: number | null
-    userId: number | null
+    saldo: number | null
   }
 
   export type CardMinAggregateOutputType = {
     id: number | null
     uid: string | null
-    userId: number | null
+    proprietario: string | null
+    tipo: string | null
+    saldo: number | null
+    status: string | null
     description: string | null
     createdAt: Date | null
   }
@@ -2604,7 +2692,10 @@ export namespace Prisma {
   export type CardMaxAggregateOutputType = {
     id: number | null
     uid: string | null
-    userId: number | null
+    proprietario: string | null
+    tipo: string | null
+    saldo: number | null
+    status: string | null
     description: string | null
     createdAt: Date | null
   }
@@ -2612,7 +2703,10 @@ export namespace Prisma {
   export type CardCountAggregateOutputType = {
     id: number
     uid: number
-    userId: number
+    proprietario: number
+    tipo: number
+    saldo: number
+    status: number
     description: number
     createdAt: number
     _all: number
@@ -2621,18 +2715,21 @@ export namespace Prisma {
 
   export type CardAvgAggregateInputType = {
     id?: true
-    userId?: true
+    saldo?: true
   }
 
   export type CardSumAggregateInputType = {
     id?: true
-    userId?: true
+    saldo?: true
   }
 
   export type CardMinAggregateInputType = {
     id?: true
     uid?: true
-    userId?: true
+    proprietario?: true
+    tipo?: true
+    saldo?: true
+    status?: true
     description?: true
     createdAt?: true
   }
@@ -2640,7 +2737,10 @@ export namespace Prisma {
   export type CardMaxAggregateInputType = {
     id?: true
     uid?: true
-    userId?: true
+    proprietario?: true
+    tipo?: true
+    saldo?: true
+    status?: true
     description?: true
     createdAt?: true
   }
@@ -2648,7 +2748,10 @@ export namespace Prisma {
   export type CardCountAggregateInputType = {
     id?: true
     uid?: true
-    userId?: true
+    proprietario?: true
+    tipo?: true
+    saldo?: true
+    status?: true
     description?: true
     createdAt?: true
     _all?: true
@@ -2743,7 +2846,10 @@ export namespace Prisma {
   export type CardGroupByOutputType = {
     id: number
     uid: string
-    userId: number
+    proprietario: string
+    tipo: string
+    saldo: number
+    status: string
     description: string | null
     createdAt: Date
     _count: CardCountAggregateOutputType | null
@@ -2770,58 +2876,69 @@ export namespace Prisma {
   export type CardSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     uid?: boolean
-    userId?: boolean
+    proprietario?: boolean
+    tipo?: boolean
+    saldo?: boolean
+    status?: boolean
     description?: boolean
     createdAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    recargas?: boolean | Card$recargasArgs<ExtArgs>
+    _count?: boolean | CardCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["card"]>
 
   export type CardSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     uid?: boolean
-    userId?: boolean
+    proprietario?: boolean
+    tipo?: boolean
+    saldo?: boolean
+    status?: boolean
     description?: boolean
     createdAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["card"]>
 
   export type CardSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     uid?: boolean
-    userId?: boolean
+    proprietario?: boolean
+    tipo?: boolean
+    saldo?: boolean
+    status?: boolean
     description?: boolean
     createdAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["card"]>
 
   export type CardSelectScalar = {
     id?: boolean
     uid?: boolean
-    userId?: boolean
+    proprietario?: boolean
+    tipo?: boolean
+    saldo?: boolean
+    status?: boolean
     description?: boolean
     createdAt?: boolean
   }
 
-  export type CardOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "uid" | "userId" | "description" | "createdAt", ExtArgs["result"]["card"]>
+  export type CardOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "uid" | "proprietario" | "tipo" | "saldo" | "status" | "description" | "createdAt", ExtArgs["result"]["card"]>
   export type CardInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    recargas?: boolean | Card$recargasArgs<ExtArgs>
+    _count?: boolean | CardCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type CardIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }
-  export type CardIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }
+  export type CardIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type CardIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $CardPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Card"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs>
+      recargas: Prisma.$RecargaPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       uid: string
-      userId: number
+      proprietario: string
+      tipo: string
+      saldo: number
+      status: string
       description: string | null
       createdAt: Date
     }, ExtArgs["result"]["card"]>
@@ -3218,7 +3335,7 @@ export namespace Prisma {
    */
   export interface Prisma__CardClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    recargas<T extends Card$recargasArgs<ExtArgs> = {}>(args?: Subset<T, Card$recargasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RecargaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3250,7 +3367,10 @@ export namespace Prisma {
   interface CardFieldRefs {
     readonly id: FieldRef<"Card", 'Int'>
     readonly uid: FieldRef<"Card", 'String'>
-    readonly userId: FieldRef<"Card", 'Int'>
+    readonly proprietario: FieldRef<"Card", 'String'>
+    readonly tipo: FieldRef<"Card", 'String'>
+    readonly saldo: FieldRef<"Card", 'Float'>
+    readonly status: FieldRef<"Card", 'String'>
     readonly description: FieldRef<"Card", 'String'>
     readonly createdAt: FieldRef<"Card", 'DateTime'>
   }
@@ -3502,10 +3622,6 @@ export namespace Prisma {
      */
     data: CardCreateManyInput | CardCreateManyInput[]
     skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CardIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -3576,10 +3692,6 @@ export namespace Prisma {
      * Limit how many Cards to update.
      */
     limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CardIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -3649,6 +3761,30 @@ export namespace Prisma {
   }
 
   /**
+   * Card.recargas
+   */
+  export type Card$recargasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recarga
+     */
+    select?: RecargaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recarga
+     */
+    omit?: RecargaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecargaInclude<ExtArgs> | null
+    where?: RecargaWhereInput
+    orderBy?: RecargaOrderByWithRelationInput | RecargaOrderByWithRelationInput[]
+    cursor?: RecargaWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RecargaScalarFieldEnum | RecargaScalarFieldEnum[]
+  }
+
+  /**
    * Card without action
    */
   export type CardDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3664,6 +3800,1123 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: CardInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Recarga
+   */
+
+  export type AggregateRecarga = {
+    _count: RecargaCountAggregateOutputType | null
+    _avg: RecargaAvgAggregateOutputType | null
+    _sum: RecargaSumAggregateOutputType | null
+    _min: RecargaMinAggregateOutputType | null
+    _max: RecargaMaxAggregateOutputType | null
+  }
+
+  export type RecargaAvgAggregateOutputType = {
+    id: number | null
+    cartaoId: number | null
+    quantidade: number | null
+    valor: number | null
+  }
+
+  export type RecargaSumAggregateOutputType = {
+    id: number | null
+    cartaoId: number | null
+    quantidade: number | null
+    valor: number | null
+  }
+
+  export type RecargaMinAggregateOutputType = {
+    id: number | null
+    cartaoId: number | null
+    quantidade: number | null
+    valor: number | null
+    metodo: string | null
+    data: Date | null
+  }
+
+  export type RecargaMaxAggregateOutputType = {
+    id: number | null
+    cartaoId: number | null
+    quantidade: number | null
+    valor: number | null
+    metodo: string | null
+    data: Date | null
+  }
+
+  export type RecargaCountAggregateOutputType = {
+    id: number
+    cartaoId: number
+    quantidade: number
+    valor: number
+    metodo: number
+    data: number
+    _all: number
+  }
+
+
+  export type RecargaAvgAggregateInputType = {
+    id?: true
+    cartaoId?: true
+    quantidade?: true
+    valor?: true
+  }
+
+  export type RecargaSumAggregateInputType = {
+    id?: true
+    cartaoId?: true
+    quantidade?: true
+    valor?: true
+  }
+
+  export type RecargaMinAggregateInputType = {
+    id?: true
+    cartaoId?: true
+    quantidade?: true
+    valor?: true
+    metodo?: true
+    data?: true
+  }
+
+  export type RecargaMaxAggregateInputType = {
+    id?: true
+    cartaoId?: true
+    quantidade?: true
+    valor?: true
+    metodo?: true
+    data?: true
+  }
+
+  export type RecargaCountAggregateInputType = {
+    id?: true
+    cartaoId?: true
+    quantidade?: true
+    valor?: true
+    metodo?: true
+    data?: true
+    _all?: true
+  }
+
+  export type RecargaAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Recarga to aggregate.
+     */
+    where?: RecargaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Recargas to fetch.
+     */
+    orderBy?: RecargaOrderByWithRelationInput | RecargaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RecargaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Recargas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Recargas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Recargas
+    **/
+    _count?: true | RecargaCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: RecargaAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: RecargaSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RecargaMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RecargaMaxAggregateInputType
+  }
+
+  export type GetRecargaAggregateType<T extends RecargaAggregateArgs> = {
+        [P in keyof T & keyof AggregateRecarga]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRecarga[P]>
+      : GetScalarType<T[P], AggregateRecarga[P]>
+  }
+
+
+
+
+  export type RecargaGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RecargaWhereInput
+    orderBy?: RecargaOrderByWithAggregationInput | RecargaOrderByWithAggregationInput[]
+    by: RecargaScalarFieldEnum[] | RecargaScalarFieldEnum
+    having?: RecargaScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RecargaCountAggregateInputType | true
+    _avg?: RecargaAvgAggregateInputType
+    _sum?: RecargaSumAggregateInputType
+    _min?: RecargaMinAggregateInputType
+    _max?: RecargaMaxAggregateInputType
+  }
+
+  export type RecargaGroupByOutputType = {
+    id: number
+    cartaoId: number
+    quantidade: number
+    valor: number
+    metodo: string
+    data: Date
+    _count: RecargaCountAggregateOutputType | null
+    _avg: RecargaAvgAggregateOutputType | null
+    _sum: RecargaSumAggregateOutputType | null
+    _min: RecargaMinAggregateOutputType | null
+    _max: RecargaMaxAggregateOutputType | null
+  }
+
+  type GetRecargaGroupByPayload<T extends RecargaGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RecargaGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RecargaGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RecargaGroupByOutputType[P]>
+            : GetScalarType<T[P], RecargaGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RecargaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    cartaoId?: boolean
+    quantidade?: boolean
+    valor?: boolean
+    metodo?: boolean
+    data?: boolean
+    cartao?: boolean | CardDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["recarga"]>
+
+  export type RecargaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    cartaoId?: boolean
+    quantidade?: boolean
+    valor?: boolean
+    metodo?: boolean
+    data?: boolean
+    cartao?: boolean | CardDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["recarga"]>
+
+  export type RecargaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    cartaoId?: boolean
+    quantidade?: boolean
+    valor?: boolean
+    metodo?: boolean
+    data?: boolean
+    cartao?: boolean | CardDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["recarga"]>
+
+  export type RecargaSelectScalar = {
+    id?: boolean
+    cartaoId?: boolean
+    quantidade?: boolean
+    valor?: boolean
+    metodo?: boolean
+    data?: boolean
+  }
+
+  export type RecargaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "cartaoId" | "quantidade" | "valor" | "metodo" | "data", ExtArgs["result"]["recarga"]>
+  export type RecargaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    cartao?: boolean | CardDefaultArgs<ExtArgs>
+  }
+  export type RecargaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    cartao?: boolean | CardDefaultArgs<ExtArgs>
+  }
+  export type RecargaIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    cartao?: boolean | CardDefaultArgs<ExtArgs>
+  }
+
+  export type $RecargaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Recarga"
+    objects: {
+      cartao: Prisma.$CardPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      cartaoId: number
+      quantidade: number
+      valor: number
+      metodo: string
+      data: Date
+    }, ExtArgs["result"]["recarga"]>
+    composites: {}
+  }
+
+  type RecargaGetPayload<S extends boolean | null | undefined | RecargaDefaultArgs> = $Result.GetResult<Prisma.$RecargaPayload, S>
+
+  type RecargaCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<RecargaFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: RecargaCountAggregateInputType | true
+    }
+
+  export interface RecargaDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Recarga'], meta: { name: 'Recarga' } }
+    /**
+     * Find zero or one Recarga that matches the filter.
+     * @param {RecargaFindUniqueArgs} args - Arguments to find a Recarga
+     * @example
+     * // Get one Recarga
+     * const recarga = await prisma.recarga.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RecargaFindUniqueArgs>(args: SelectSubset<T, RecargaFindUniqueArgs<ExtArgs>>): Prisma__RecargaClient<$Result.GetResult<Prisma.$RecargaPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Recarga that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RecargaFindUniqueOrThrowArgs} args - Arguments to find a Recarga
+     * @example
+     * // Get one Recarga
+     * const recarga = await prisma.recarga.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RecargaFindUniqueOrThrowArgs>(args: SelectSubset<T, RecargaFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RecargaClient<$Result.GetResult<Prisma.$RecargaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Recarga that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecargaFindFirstArgs} args - Arguments to find a Recarga
+     * @example
+     * // Get one Recarga
+     * const recarga = await prisma.recarga.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RecargaFindFirstArgs>(args?: SelectSubset<T, RecargaFindFirstArgs<ExtArgs>>): Prisma__RecargaClient<$Result.GetResult<Prisma.$RecargaPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Recarga that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecargaFindFirstOrThrowArgs} args - Arguments to find a Recarga
+     * @example
+     * // Get one Recarga
+     * const recarga = await prisma.recarga.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RecargaFindFirstOrThrowArgs>(args?: SelectSubset<T, RecargaFindFirstOrThrowArgs<ExtArgs>>): Prisma__RecargaClient<$Result.GetResult<Prisma.$RecargaPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Recargas that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecargaFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Recargas
+     * const recargas = await prisma.recarga.findMany()
+     * 
+     * // Get first 10 Recargas
+     * const recargas = await prisma.recarga.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const recargaWithIdOnly = await prisma.recarga.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RecargaFindManyArgs>(args?: SelectSubset<T, RecargaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RecargaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Recarga.
+     * @param {RecargaCreateArgs} args - Arguments to create a Recarga.
+     * @example
+     * // Create one Recarga
+     * const Recarga = await prisma.recarga.create({
+     *   data: {
+     *     // ... data to create a Recarga
+     *   }
+     * })
+     * 
+     */
+    create<T extends RecargaCreateArgs>(args: SelectSubset<T, RecargaCreateArgs<ExtArgs>>): Prisma__RecargaClient<$Result.GetResult<Prisma.$RecargaPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Recargas.
+     * @param {RecargaCreateManyArgs} args - Arguments to create many Recargas.
+     * @example
+     * // Create many Recargas
+     * const recarga = await prisma.recarga.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RecargaCreateManyArgs>(args?: SelectSubset<T, RecargaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Recargas and returns the data saved in the database.
+     * @param {RecargaCreateManyAndReturnArgs} args - Arguments to create many Recargas.
+     * @example
+     * // Create many Recargas
+     * const recarga = await prisma.recarga.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Recargas and only return the `id`
+     * const recargaWithIdOnly = await prisma.recarga.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RecargaCreateManyAndReturnArgs>(args?: SelectSubset<T, RecargaCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RecargaPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Recarga.
+     * @param {RecargaDeleteArgs} args - Arguments to delete one Recarga.
+     * @example
+     * // Delete one Recarga
+     * const Recarga = await prisma.recarga.delete({
+     *   where: {
+     *     // ... filter to delete one Recarga
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RecargaDeleteArgs>(args: SelectSubset<T, RecargaDeleteArgs<ExtArgs>>): Prisma__RecargaClient<$Result.GetResult<Prisma.$RecargaPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Recarga.
+     * @param {RecargaUpdateArgs} args - Arguments to update one Recarga.
+     * @example
+     * // Update one Recarga
+     * const recarga = await prisma.recarga.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RecargaUpdateArgs>(args: SelectSubset<T, RecargaUpdateArgs<ExtArgs>>): Prisma__RecargaClient<$Result.GetResult<Prisma.$RecargaPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Recargas.
+     * @param {RecargaDeleteManyArgs} args - Arguments to filter Recargas to delete.
+     * @example
+     * // Delete a few Recargas
+     * const { count } = await prisma.recarga.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RecargaDeleteManyArgs>(args?: SelectSubset<T, RecargaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Recargas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecargaUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Recargas
+     * const recarga = await prisma.recarga.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RecargaUpdateManyArgs>(args: SelectSubset<T, RecargaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Recargas and returns the data updated in the database.
+     * @param {RecargaUpdateManyAndReturnArgs} args - Arguments to update many Recargas.
+     * @example
+     * // Update many Recargas
+     * const recarga = await prisma.recarga.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Recargas and only return the `id`
+     * const recargaWithIdOnly = await prisma.recarga.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends RecargaUpdateManyAndReturnArgs>(args: SelectSubset<T, RecargaUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RecargaPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Recarga.
+     * @param {RecargaUpsertArgs} args - Arguments to update or create a Recarga.
+     * @example
+     * // Update or create a Recarga
+     * const recarga = await prisma.recarga.upsert({
+     *   create: {
+     *     // ... data to create a Recarga
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Recarga we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RecargaUpsertArgs>(args: SelectSubset<T, RecargaUpsertArgs<ExtArgs>>): Prisma__RecargaClient<$Result.GetResult<Prisma.$RecargaPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Recargas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecargaCountArgs} args - Arguments to filter Recargas to count.
+     * @example
+     * // Count the number of Recargas
+     * const count = await prisma.recarga.count({
+     *   where: {
+     *     // ... the filter for the Recargas we want to count
+     *   }
+     * })
+    **/
+    count<T extends RecargaCountArgs>(
+      args?: Subset<T, RecargaCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RecargaCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Recarga.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecargaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RecargaAggregateArgs>(args: Subset<T, RecargaAggregateArgs>): Prisma.PrismaPromise<GetRecargaAggregateType<T>>
+
+    /**
+     * Group by Recarga.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecargaGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RecargaGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RecargaGroupByArgs['orderBy'] }
+        : { orderBy?: RecargaGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RecargaGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRecargaGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Recarga model
+   */
+  readonly fields: RecargaFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Recarga.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RecargaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    cartao<T extends CardDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CardDefaultArgs<ExtArgs>>): Prisma__CardClient<$Result.GetResult<Prisma.$CardPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Recarga model
+   */
+  interface RecargaFieldRefs {
+    readonly id: FieldRef<"Recarga", 'Int'>
+    readonly cartaoId: FieldRef<"Recarga", 'Int'>
+    readonly quantidade: FieldRef<"Recarga", 'Float'>
+    readonly valor: FieldRef<"Recarga", 'Float'>
+    readonly metodo: FieldRef<"Recarga", 'String'>
+    readonly data: FieldRef<"Recarga", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Recarga findUnique
+   */
+  export type RecargaFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recarga
+     */
+    select?: RecargaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recarga
+     */
+    omit?: RecargaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecargaInclude<ExtArgs> | null
+    /**
+     * Filter, which Recarga to fetch.
+     */
+    where: RecargaWhereUniqueInput
+  }
+
+  /**
+   * Recarga findUniqueOrThrow
+   */
+  export type RecargaFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recarga
+     */
+    select?: RecargaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recarga
+     */
+    omit?: RecargaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecargaInclude<ExtArgs> | null
+    /**
+     * Filter, which Recarga to fetch.
+     */
+    where: RecargaWhereUniqueInput
+  }
+
+  /**
+   * Recarga findFirst
+   */
+  export type RecargaFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recarga
+     */
+    select?: RecargaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recarga
+     */
+    omit?: RecargaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecargaInclude<ExtArgs> | null
+    /**
+     * Filter, which Recarga to fetch.
+     */
+    where?: RecargaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Recargas to fetch.
+     */
+    orderBy?: RecargaOrderByWithRelationInput | RecargaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Recargas.
+     */
+    cursor?: RecargaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Recargas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Recargas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Recargas.
+     */
+    distinct?: RecargaScalarFieldEnum | RecargaScalarFieldEnum[]
+  }
+
+  /**
+   * Recarga findFirstOrThrow
+   */
+  export type RecargaFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recarga
+     */
+    select?: RecargaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recarga
+     */
+    omit?: RecargaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecargaInclude<ExtArgs> | null
+    /**
+     * Filter, which Recarga to fetch.
+     */
+    where?: RecargaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Recargas to fetch.
+     */
+    orderBy?: RecargaOrderByWithRelationInput | RecargaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Recargas.
+     */
+    cursor?: RecargaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Recargas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Recargas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Recargas.
+     */
+    distinct?: RecargaScalarFieldEnum | RecargaScalarFieldEnum[]
+  }
+
+  /**
+   * Recarga findMany
+   */
+  export type RecargaFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recarga
+     */
+    select?: RecargaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recarga
+     */
+    omit?: RecargaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecargaInclude<ExtArgs> | null
+    /**
+     * Filter, which Recargas to fetch.
+     */
+    where?: RecargaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Recargas to fetch.
+     */
+    orderBy?: RecargaOrderByWithRelationInput | RecargaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Recargas.
+     */
+    cursor?: RecargaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Recargas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Recargas.
+     */
+    skip?: number
+    distinct?: RecargaScalarFieldEnum | RecargaScalarFieldEnum[]
+  }
+
+  /**
+   * Recarga create
+   */
+  export type RecargaCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recarga
+     */
+    select?: RecargaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recarga
+     */
+    omit?: RecargaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecargaInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Recarga.
+     */
+    data: XOR<RecargaCreateInput, RecargaUncheckedCreateInput>
+  }
+
+  /**
+   * Recarga createMany
+   */
+  export type RecargaCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Recargas.
+     */
+    data: RecargaCreateManyInput | RecargaCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Recarga createManyAndReturn
+   */
+  export type RecargaCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recarga
+     */
+    select?: RecargaSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recarga
+     */
+    omit?: RecargaOmit<ExtArgs> | null
+    /**
+     * The data used to create many Recargas.
+     */
+    data: RecargaCreateManyInput | RecargaCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecargaIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Recarga update
+   */
+  export type RecargaUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recarga
+     */
+    select?: RecargaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recarga
+     */
+    omit?: RecargaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecargaInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Recarga.
+     */
+    data: XOR<RecargaUpdateInput, RecargaUncheckedUpdateInput>
+    /**
+     * Choose, which Recarga to update.
+     */
+    where: RecargaWhereUniqueInput
+  }
+
+  /**
+   * Recarga updateMany
+   */
+  export type RecargaUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Recargas.
+     */
+    data: XOR<RecargaUpdateManyMutationInput, RecargaUncheckedUpdateManyInput>
+    /**
+     * Filter which Recargas to update
+     */
+    where?: RecargaWhereInput
+    /**
+     * Limit how many Recargas to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Recarga updateManyAndReturn
+   */
+  export type RecargaUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recarga
+     */
+    select?: RecargaSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recarga
+     */
+    omit?: RecargaOmit<ExtArgs> | null
+    /**
+     * The data used to update Recargas.
+     */
+    data: XOR<RecargaUpdateManyMutationInput, RecargaUncheckedUpdateManyInput>
+    /**
+     * Filter which Recargas to update
+     */
+    where?: RecargaWhereInput
+    /**
+     * Limit how many Recargas to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecargaIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Recarga upsert
+   */
+  export type RecargaUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recarga
+     */
+    select?: RecargaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recarga
+     */
+    omit?: RecargaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecargaInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Recarga to update in case it exists.
+     */
+    where: RecargaWhereUniqueInput
+    /**
+     * In case the Recarga found by the `where` argument doesn't exist, create a new Recarga with this data.
+     */
+    create: XOR<RecargaCreateInput, RecargaUncheckedCreateInput>
+    /**
+     * In case the Recarga was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RecargaUpdateInput, RecargaUncheckedUpdateInput>
+  }
+
+  /**
+   * Recarga delete
+   */
+  export type RecargaDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recarga
+     */
+    select?: RecargaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recarga
+     */
+    omit?: RecargaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecargaInclude<ExtArgs> | null
+    /**
+     * Filter which Recarga to delete.
+     */
+    where: RecargaWhereUniqueInput
+  }
+
+  /**
+   * Recarga deleteMany
+   */
+  export type RecargaDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Recargas to delete
+     */
+    where?: RecargaWhereInput
+    /**
+     * Limit how many Recargas to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Recarga without action
+   */
+  export type RecargaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Recarga
+     */
+    select?: RecargaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Recarga
+     */
+    omit?: RecargaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecargaInclude<ExtArgs> | null
   }
 
 
@@ -7350,12 +8603,27 @@ export namespace Prisma {
   export const CardScalarFieldEnum: {
     id: 'id',
     uid: 'uid',
-    userId: 'userId',
+    proprietario: 'proprietario',
+    tipo: 'tipo',
+    saldo: 'saldo',
+    status: 'status',
     description: 'description',
     createdAt: 'createdAt'
   };
 
   export type CardScalarFieldEnum = (typeof CardScalarFieldEnum)[keyof typeof CardScalarFieldEnum]
+
+
+  export const RecargaScalarFieldEnum: {
+    id: 'id',
+    cartaoId: 'cartaoId',
+    quantidade: 'quantidade',
+    valor: 'valor',
+    metodo: 'metodo',
+    data: 'data'
+  };
+
+  export type RecargaScalarFieldEnum = (typeof RecargaScalarFieldEnum)[keyof typeof RecargaScalarFieldEnum]
 
 
   export const StationScalarFieldEnum: {
@@ -7494,20 +8762,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'StationStatus'
-   */
-  export type EnumStationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StationStatus'>
-    
-
-
-  /**
-   * Reference to a field of type 'StationStatus[]'
-   */
-  export type ListEnumStationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StationStatus[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -7518,6 +8772,20 @@ export namespace Prisma {
    * Reference to a field of type 'Float[]'
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'StationStatus'
+   */
+  export type EnumStationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StationStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'StationStatus[]'
+   */
+  export type ListEnumStationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StationStatus[]'>
     
 
 
@@ -7578,7 +8846,6 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     resolvedAlerts?: AlertListRelationFilter
-    cards?: CardListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -7590,7 +8857,6 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     resolvedAlerts?: AlertOrderByRelationAggregateInput
-    cards?: CardOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -7605,7 +8871,6 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     resolvedAlerts?: AlertListRelationFilter
-    cards?: CardListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -7642,19 +8907,25 @@ export namespace Prisma {
     NOT?: CardWhereInput | CardWhereInput[]
     id?: IntFilter<"Card"> | number
     uid?: StringFilter<"Card"> | string
-    userId?: IntFilter<"Card"> | number
+    proprietario?: StringFilter<"Card"> | string
+    tipo?: StringFilter<"Card"> | string
+    saldo?: FloatFilter<"Card"> | number
+    status?: StringFilter<"Card"> | string
     description?: StringNullableFilter<"Card"> | string | null
     createdAt?: DateTimeFilter<"Card"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    recargas?: RecargaListRelationFilter
   }
 
   export type CardOrderByWithRelationInput = {
     id?: SortOrder
     uid?: SortOrder
-    userId?: SortOrder
+    proprietario?: SortOrder
+    tipo?: SortOrder
+    saldo?: SortOrder
+    status?: SortOrder
     description?: SortOrderInput | SortOrder
     createdAt?: SortOrder
-    user?: UserOrderByWithRelationInput
+    recargas?: RecargaOrderByRelationAggregateInput
   }
 
   export type CardWhereUniqueInput = Prisma.AtLeast<{
@@ -7663,16 +8934,22 @@ export namespace Prisma {
     AND?: CardWhereInput | CardWhereInput[]
     OR?: CardWhereInput[]
     NOT?: CardWhereInput | CardWhereInput[]
-    userId?: IntFilter<"Card"> | number
+    proprietario?: StringFilter<"Card"> | string
+    tipo?: StringFilter<"Card"> | string
+    saldo?: FloatFilter<"Card"> | number
+    status?: StringFilter<"Card"> | string
     description?: StringNullableFilter<"Card"> | string | null
     createdAt?: DateTimeFilter<"Card"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    recargas?: RecargaListRelationFilter
   }, "id" | "uid">
 
   export type CardOrderByWithAggregationInput = {
     id?: SortOrder
     uid?: SortOrder
-    userId?: SortOrder
+    proprietario?: SortOrder
+    tipo?: SortOrder
+    saldo?: SortOrder
+    status?: SortOrder
     description?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: CardCountOrderByAggregateInput
@@ -7688,9 +8965,74 @@ export namespace Prisma {
     NOT?: CardScalarWhereWithAggregatesInput | CardScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Card"> | number
     uid?: StringWithAggregatesFilter<"Card"> | string
-    userId?: IntWithAggregatesFilter<"Card"> | number
+    proprietario?: StringWithAggregatesFilter<"Card"> | string
+    tipo?: StringWithAggregatesFilter<"Card"> | string
+    saldo?: FloatWithAggregatesFilter<"Card"> | number
+    status?: StringWithAggregatesFilter<"Card"> | string
     description?: StringNullableWithAggregatesFilter<"Card"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Card"> | Date | string
+  }
+
+  export type RecargaWhereInput = {
+    AND?: RecargaWhereInput | RecargaWhereInput[]
+    OR?: RecargaWhereInput[]
+    NOT?: RecargaWhereInput | RecargaWhereInput[]
+    id?: IntFilter<"Recarga"> | number
+    cartaoId?: IntFilter<"Recarga"> | number
+    quantidade?: FloatFilter<"Recarga"> | number
+    valor?: FloatFilter<"Recarga"> | number
+    metodo?: StringFilter<"Recarga"> | string
+    data?: DateTimeFilter<"Recarga"> | Date | string
+    cartao?: XOR<CardScalarRelationFilter, CardWhereInput>
+  }
+
+  export type RecargaOrderByWithRelationInput = {
+    id?: SortOrder
+    cartaoId?: SortOrder
+    quantidade?: SortOrder
+    valor?: SortOrder
+    metodo?: SortOrder
+    data?: SortOrder
+    cartao?: CardOrderByWithRelationInput
+  }
+
+  export type RecargaWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: RecargaWhereInput | RecargaWhereInput[]
+    OR?: RecargaWhereInput[]
+    NOT?: RecargaWhereInput | RecargaWhereInput[]
+    cartaoId?: IntFilter<"Recarga"> | number
+    quantidade?: FloatFilter<"Recarga"> | number
+    valor?: FloatFilter<"Recarga"> | number
+    metodo?: StringFilter<"Recarga"> | string
+    data?: DateTimeFilter<"Recarga"> | Date | string
+    cartao?: XOR<CardScalarRelationFilter, CardWhereInput>
+  }, "id">
+
+  export type RecargaOrderByWithAggregationInput = {
+    id?: SortOrder
+    cartaoId?: SortOrder
+    quantidade?: SortOrder
+    valor?: SortOrder
+    metodo?: SortOrder
+    data?: SortOrder
+    _count?: RecargaCountOrderByAggregateInput
+    _avg?: RecargaAvgOrderByAggregateInput
+    _max?: RecargaMaxOrderByAggregateInput
+    _min?: RecargaMinOrderByAggregateInput
+    _sum?: RecargaSumOrderByAggregateInput
+  }
+
+  export type RecargaScalarWhereWithAggregatesInput = {
+    AND?: RecargaScalarWhereWithAggregatesInput | RecargaScalarWhereWithAggregatesInput[]
+    OR?: RecargaScalarWhereWithAggregatesInput[]
+    NOT?: RecargaScalarWhereWithAggregatesInput | RecargaScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Recarga"> | number
+    cartaoId?: IntWithAggregatesFilter<"Recarga"> | number
+    quantidade?: FloatWithAggregatesFilter<"Recarga"> | number
+    valor?: FloatWithAggregatesFilter<"Recarga"> | number
+    metodo?: StringWithAggregatesFilter<"Recarga"> | string
+    data?: DateTimeWithAggregatesFilter<"Recarga"> | Date | string
   }
 
   export type StationWhereInput = {
@@ -7969,7 +9311,6 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     resolvedAlerts?: AlertCreateNestedManyWithoutResolvedByInput
-    cards?: CardCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -7981,7 +9322,6 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     resolvedAlerts?: AlertUncheckedCreateNestedManyWithoutResolvedByInput
-    cards?: CardUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -7992,7 +9332,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     resolvedAlerts?: AlertUpdateManyWithoutResolvedByNestedInput
-    cards?: CardUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -8004,7 +9343,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     resolvedAlerts?: AlertUncheckedUpdateManyWithoutResolvedByNestedInput
-    cards?: CardUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -8038,44 +9376,67 @@ export namespace Prisma {
 
   export type CardCreateInput = {
     uid: string
+    proprietario: string
+    tipo?: string
+    saldo: number
+    status?: string
     description?: string | null
     createdAt?: Date | string
-    user: UserCreateNestedOneWithoutCardsInput
+    recargas?: RecargaCreateNestedManyWithoutCartaoInput
   }
 
   export type CardUncheckedCreateInput = {
     id?: number
     uid: string
-    userId: number
+    proprietario: string
+    tipo?: string
+    saldo: number
+    status?: string
     description?: string | null
     createdAt?: Date | string
+    recargas?: RecargaUncheckedCreateNestedManyWithoutCartaoInput
   }
 
   export type CardUpdateInput = {
     uid?: StringFieldUpdateOperationsInput | string
+    proprietario?: StringFieldUpdateOperationsInput | string
+    tipo?: StringFieldUpdateOperationsInput | string
+    saldo?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutCardsNestedInput
+    recargas?: RecargaUpdateManyWithoutCartaoNestedInput
   }
 
   export type CardUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     uid?: StringFieldUpdateOperationsInput | string
-    userId?: IntFieldUpdateOperationsInput | number
+    proprietario?: StringFieldUpdateOperationsInput | string
+    tipo?: StringFieldUpdateOperationsInput | string
+    saldo?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    recargas?: RecargaUncheckedUpdateManyWithoutCartaoNestedInput
   }
 
   export type CardCreateManyInput = {
     id?: number
     uid: string
-    userId: number
+    proprietario: string
+    tipo?: string
+    saldo: number
+    status?: string
     description?: string | null
     createdAt?: Date | string
   }
 
   export type CardUpdateManyMutationInput = {
     uid?: StringFieldUpdateOperationsInput | string
+    proprietario?: StringFieldUpdateOperationsInput | string
+    tipo?: StringFieldUpdateOperationsInput | string
+    saldo?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8083,9 +9444,71 @@ export namespace Prisma {
   export type CardUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     uid?: StringFieldUpdateOperationsInput | string
-    userId?: IntFieldUpdateOperationsInput | number
+    proprietario?: StringFieldUpdateOperationsInput | string
+    tipo?: StringFieldUpdateOperationsInput | string
+    saldo?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RecargaCreateInput = {
+    quantidade: number
+    valor: number
+    metodo: string
+    data?: Date | string
+    cartao: CardCreateNestedOneWithoutRecargasInput
+  }
+
+  export type RecargaUncheckedCreateInput = {
+    id?: number
+    cartaoId: number
+    quantidade: number
+    valor: number
+    metodo: string
+    data?: Date | string
+  }
+
+  export type RecargaUpdateInput = {
+    quantidade?: FloatFieldUpdateOperationsInput | number
+    valor?: FloatFieldUpdateOperationsInput | number
+    metodo?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
+    cartao?: CardUpdateOneRequiredWithoutRecargasNestedInput
+  }
+
+  export type RecargaUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    cartaoId?: IntFieldUpdateOperationsInput | number
+    quantidade?: FloatFieldUpdateOperationsInput | number
+    valor?: FloatFieldUpdateOperationsInput | number
+    metodo?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RecargaCreateManyInput = {
+    id?: number
+    cartaoId: number
+    quantidade: number
+    valor: number
+    metodo: string
+    data?: Date | string
+  }
+
+  export type RecargaUpdateManyMutationInput = {
+    quantidade?: FloatFieldUpdateOperationsInput | number
+    valor?: FloatFieldUpdateOperationsInput | number
+    metodo?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RecargaUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    cartaoId?: IntFieldUpdateOperationsInput | number
+    quantidade?: FloatFieldUpdateOperationsInput | number
+    valor?: FloatFieldUpdateOperationsInput | number
+    metodo?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StationCreateInput = {
@@ -8424,17 +9847,7 @@ export namespace Prisma {
     none?: AlertWhereInput
   }
 
-  export type CardListRelationFilter = {
-    every?: CardWhereInput
-    some?: CardWhereInput
-    none?: CardWhereInput
-  }
-
   export type AlertOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type CardOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -8534,6 +9947,17 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type StringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -8549,9 +9973,10 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type UserScalarRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
+  export type RecargaListRelationFilter = {
+    every?: RecargaWhereInput
+    some?: RecargaWhereInput
+    none?: RecargaWhereInput
   }
 
   export type SortOrderInput = {
@@ -8559,23 +9984,33 @@ export namespace Prisma {
     nulls?: NullsOrder
   }
 
+  export type RecargaOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type CardCountOrderByAggregateInput = {
     id?: SortOrder
     uid?: SortOrder
-    userId?: SortOrder
+    proprietario?: SortOrder
+    tipo?: SortOrder
+    saldo?: SortOrder
+    status?: SortOrder
     description?: SortOrder
     createdAt?: SortOrder
   }
 
   export type CardAvgOrderByAggregateInput = {
     id?: SortOrder
-    userId?: SortOrder
+    saldo?: SortOrder
   }
 
   export type CardMaxOrderByAggregateInput = {
     id?: SortOrder
     uid?: SortOrder
-    userId?: SortOrder
+    proprietario?: SortOrder
+    tipo?: SortOrder
+    saldo?: SortOrder
+    status?: SortOrder
     description?: SortOrder
     createdAt?: SortOrder
   }
@@ -8583,14 +10018,33 @@ export namespace Prisma {
   export type CardMinOrderByAggregateInput = {
     id?: SortOrder
     uid?: SortOrder
-    userId?: SortOrder
+    proprietario?: SortOrder
+    tipo?: SortOrder
+    saldo?: SortOrder
+    status?: SortOrder
     description?: SortOrder
     createdAt?: SortOrder
   }
 
   export type CardSumOrderByAggregateInput = {
     id?: SortOrder
-    userId?: SortOrder
+    saldo?: SortOrder
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -8609,6 +10063,52 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type CardScalarRelationFilter = {
+    is?: CardWhereInput
+    isNot?: CardWhereInput
+  }
+
+  export type RecargaCountOrderByAggregateInput = {
+    id?: SortOrder
+    cartaoId?: SortOrder
+    quantidade?: SortOrder
+    valor?: SortOrder
+    metodo?: SortOrder
+    data?: SortOrder
+  }
+
+  export type RecargaAvgOrderByAggregateInput = {
+    id?: SortOrder
+    cartaoId?: SortOrder
+    quantidade?: SortOrder
+    valor?: SortOrder
+  }
+
+  export type RecargaMaxOrderByAggregateInput = {
+    id?: SortOrder
+    cartaoId?: SortOrder
+    quantidade?: SortOrder
+    valor?: SortOrder
+    metodo?: SortOrder
+    data?: SortOrder
+  }
+
+  export type RecargaMinOrderByAggregateInput = {
+    id?: SortOrder
+    cartaoId?: SortOrder
+    quantidade?: SortOrder
+    valor?: SortOrder
+    metodo?: SortOrder
+    data?: SortOrder
+  }
+
+  export type RecargaSumOrderByAggregateInput = {
+    id?: SortOrder
+    cartaoId?: SortOrder
+    quantidade?: SortOrder
+    valor?: SortOrder
   }
 
   export type EnumStationStatusFilter<$PrismaModel = never> = {
@@ -8707,17 +10207,6 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type FloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
   export type EnumSensorStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.SensorStatus | EnumSensorStatusFieldRefInput<$PrismaModel>
     in?: $Enums.SensorStatus[] | ListEnumSensorStatusFieldRefInput<$PrismaModel>
@@ -8797,22 +10286,6 @@ export namespace Prisma {
     tds?: SortOrder
     flowRate?: SortOrder
     totalFlow?: SortOrder
-  }
-
-  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type EnumSensorStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -8953,25 +10426,11 @@ export namespace Prisma {
     connect?: AlertWhereUniqueInput | AlertWhereUniqueInput[]
   }
 
-  export type CardCreateNestedManyWithoutUserInput = {
-    create?: XOR<CardCreateWithoutUserInput, CardUncheckedCreateWithoutUserInput> | CardCreateWithoutUserInput[] | CardUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: CardCreateOrConnectWithoutUserInput | CardCreateOrConnectWithoutUserInput[]
-    createMany?: CardCreateManyUserInputEnvelope
-    connect?: CardWhereUniqueInput | CardWhereUniqueInput[]
-  }
-
   export type AlertUncheckedCreateNestedManyWithoutResolvedByInput = {
     create?: XOR<AlertCreateWithoutResolvedByInput, AlertUncheckedCreateWithoutResolvedByInput> | AlertCreateWithoutResolvedByInput[] | AlertUncheckedCreateWithoutResolvedByInput[]
     connectOrCreate?: AlertCreateOrConnectWithoutResolvedByInput | AlertCreateOrConnectWithoutResolvedByInput[]
     createMany?: AlertCreateManyResolvedByInputEnvelope
     connect?: AlertWhereUniqueInput | AlertWhereUniqueInput[]
-  }
-
-  export type CardUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<CardCreateWithoutUserInput, CardUncheckedCreateWithoutUserInput> | CardCreateWithoutUserInput[] | CardUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: CardCreateOrConnectWithoutUserInput | CardCreateOrConnectWithoutUserInput[]
-    createMany?: CardCreateManyUserInputEnvelope
-    connect?: CardWhereUniqueInput | CardWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -9000,20 +10459,6 @@ export namespace Prisma {
     deleteMany?: AlertScalarWhereInput | AlertScalarWhereInput[]
   }
 
-  export type CardUpdateManyWithoutUserNestedInput = {
-    create?: XOR<CardCreateWithoutUserInput, CardUncheckedCreateWithoutUserInput> | CardCreateWithoutUserInput[] | CardUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: CardCreateOrConnectWithoutUserInput | CardCreateOrConnectWithoutUserInput[]
-    upsert?: CardUpsertWithWhereUniqueWithoutUserInput | CardUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: CardCreateManyUserInputEnvelope
-    set?: CardWhereUniqueInput | CardWhereUniqueInput[]
-    disconnect?: CardWhereUniqueInput | CardWhereUniqueInput[]
-    delete?: CardWhereUniqueInput | CardWhereUniqueInput[]
-    connect?: CardWhereUniqueInput | CardWhereUniqueInput[]
-    update?: CardUpdateWithWhereUniqueWithoutUserInput | CardUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: CardUpdateManyWithWhereWithoutUserInput | CardUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: CardScalarWhereInput | CardScalarWhereInput[]
-  }
-
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -9036,36 +10481,72 @@ export namespace Prisma {
     deleteMany?: AlertScalarWhereInput | AlertScalarWhereInput[]
   }
 
-  export type CardUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<CardCreateWithoutUserInput, CardUncheckedCreateWithoutUserInput> | CardCreateWithoutUserInput[] | CardUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: CardCreateOrConnectWithoutUserInput | CardCreateOrConnectWithoutUserInput[]
-    upsert?: CardUpsertWithWhereUniqueWithoutUserInput | CardUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: CardCreateManyUserInputEnvelope
-    set?: CardWhereUniqueInput | CardWhereUniqueInput[]
-    disconnect?: CardWhereUniqueInput | CardWhereUniqueInput[]
-    delete?: CardWhereUniqueInput | CardWhereUniqueInput[]
-    connect?: CardWhereUniqueInput | CardWhereUniqueInput[]
-    update?: CardUpdateWithWhereUniqueWithoutUserInput | CardUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: CardUpdateManyWithWhereWithoutUserInput | CardUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: CardScalarWhereInput | CardScalarWhereInput[]
+  export type RecargaCreateNestedManyWithoutCartaoInput = {
+    create?: XOR<RecargaCreateWithoutCartaoInput, RecargaUncheckedCreateWithoutCartaoInput> | RecargaCreateWithoutCartaoInput[] | RecargaUncheckedCreateWithoutCartaoInput[]
+    connectOrCreate?: RecargaCreateOrConnectWithoutCartaoInput | RecargaCreateOrConnectWithoutCartaoInput[]
+    createMany?: RecargaCreateManyCartaoInputEnvelope
+    connect?: RecargaWhereUniqueInput | RecargaWhereUniqueInput[]
   }
 
-  export type UserCreateNestedOneWithoutCardsInput = {
-    create?: XOR<UserCreateWithoutCardsInput, UserUncheckedCreateWithoutCardsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutCardsInput
-    connect?: UserWhereUniqueInput
+  export type RecargaUncheckedCreateNestedManyWithoutCartaoInput = {
+    create?: XOR<RecargaCreateWithoutCartaoInput, RecargaUncheckedCreateWithoutCartaoInput> | RecargaCreateWithoutCartaoInput[] | RecargaUncheckedCreateWithoutCartaoInput[]
+    connectOrCreate?: RecargaCreateOrConnectWithoutCartaoInput | RecargaCreateOrConnectWithoutCartaoInput[]
+    createMany?: RecargaCreateManyCartaoInputEnvelope
+    connect?: RecargaWhereUniqueInput | RecargaWhereUniqueInput[]
+  }
+
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
   }
 
-  export type UserUpdateOneRequiredWithoutCardsNestedInput = {
-    create?: XOR<UserCreateWithoutCardsInput, UserUncheckedCreateWithoutCardsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutCardsInput
-    upsert?: UserUpsertWithoutCardsInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCardsInput, UserUpdateWithoutCardsInput>, UserUncheckedUpdateWithoutCardsInput>
+  export type RecargaUpdateManyWithoutCartaoNestedInput = {
+    create?: XOR<RecargaCreateWithoutCartaoInput, RecargaUncheckedCreateWithoutCartaoInput> | RecargaCreateWithoutCartaoInput[] | RecargaUncheckedCreateWithoutCartaoInput[]
+    connectOrCreate?: RecargaCreateOrConnectWithoutCartaoInput | RecargaCreateOrConnectWithoutCartaoInput[]
+    upsert?: RecargaUpsertWithWhereUniqueWithoutCartaoInput | RecargaUpsertWithWhereUniqueWithoutCartaoInput[]
+    createMany?: RecargaCreateManyCartaoInputEnvelope
+    set?: RecargaWhereUniqueInput | RecargaWhereUniqueInput[]
+    disconnect?: RecargaWhereUniqueInput | RecargaWhereUniqueInput[]
+    delete?: RecargaWhereUniqueInput | RecargaWhereUniqueInput[]
+    connect?: RecargaWhereUniqueInput | RecargaWhereUniqueInput[]
+    update?: RecargaUpdateWithWhereUniqueWithoutCartaoInput | RecargaUpdateWithWhereUniqueWithoutCartaoInput[]
+    updateMany?: RecargaUpdateManyWithWhereWithoutCartaoInput | RecargaUpdateManyWithWhereWithoutCartaoInput[]
+    deleteMany?: RecargaScalarWhereInput | RecargaScalarWhereInput[]
+  }
+
+  export type RecargaUncheckedUpdateManyWithoutCartaoNestedInput = {
+    create?: XOR<RecargaCreateWithoutCartaoInput, RecargaUncheckedCreateWithoutCartaoInput> | RecargaCreateWithoutCartaoInput[] | RecargaUncheckedCreateWithoutCartaoInput[]
+    connectOrCreate?: RecargaCreateOrConnectWithoutCartaoInput | RecargaCreateOrConnectWithoutCartaoInput[]
+    upsert?: RecargaUpsertWithWhereUniqueWithoutCartaoInput | RecargaUpsertWithWhereUniqueWithoutCartaoInput[]
+    createMany?: RecargaCreateManyCartaoInputEnvelope
+    set?: RecargaWhereUniqueInput | RecargaWhereUniqueInput[]
+    disconnect?: RecargaWhereUniqueInput | RecargaWhereUniqueInput[]
+    delete?: RecargaWhereUniqueInput | RecargaWhereUniqueInput[]
+    connect?: RecargaWhereUniqueInput | RecargaWhereUniqueInput[]
+    update?: RecargaUpdateWithWhereUniqueWithoutCartaoInput | RecargaUpdateWithWhereUniqueWithoutCartaoInput[]
+    updateMany?: RecargaUpdateManyWithWhereWithoutCartaoInput | RecargaUpdateManyWithWhereWithoutCartaoInput[]
+    deleteMany?: RecargaScalarWhereInput | RecargaScalarWhereInput[]
+  }
+
+  export type CardCreateNestedOneWithoutRecargasInput = {
+    create?: XOR<CardCreateWithoutRecargasInput, CardUncheckedCreateWithoutRecargasInput>
+    connectOrCreate?: CardCreateOrConnectWithoutRecargasInput
+    connect?: CardWhereUniqueInput
+  }
+
+  export type CardUpdateOneRequiredWithoutRecargasNestedInput = {
+    create?: XOR<CardCreateWithoutRecargasInput, CardUncheckedCreateWithoutRecargasInput>
+    connectOrCreate?: CardCreateOrConnectWithoutRecargasInput
+    upsert?: CardUpsertWithoutRecargasInput
+    connect?: CardWhereUniqueInput
+    update?: XOR<XOR<CardUpdateToOneWithWhereWithoutRecargasInput, CardUpdateWithoutRecargasInput>, CardUncheckedUpdateWithoutRecargasInput>
   }
 
   export type SensorDataCreateNestedManyWithoutStationInput = {
@@ -9178,14 +10659,6 @@ export namespace Prisma {
     connectOrCreate?: AlertCreateOrConnectWithoutSensorDataInput | AlertCreateOrConnectWithoutSensorDataInput[]
     createMany?: AlertCreateManySensorDataInputEnvelope
     connect?: AlertWhereUniqueInput | AlertWhereUniqueInput[]
-  }
-
-  export type FloatFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type EnumSensorStatusFieldUpdateOperationsInput = {
@@ -9415,6 +10888,22 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -9490,22 +10979,6 @@ export namespace Prisma {
     in?: $Enums.SensorStatus[] | ListEnumSensorStatusFieldRefInput<$PrismaModel>
     notIn?: $Enums.SensorStatus[] | ListEnumSensorStatusFieldRefInput<$PrismaModel>
     not?: NestedEnumSensorStatusFilter<$PrismaModel> | $Enums.SensorStatus
-  }
-
-  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type NestedEnumSensorStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -9610,29 +11083,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type CardCreateWithoutUserInput = {
-    uid: string
-    description?: string | null
-    createdAt?: Date | string
-  }
-
-  export type CardUncheckedCreateWithoutUserInput = {
-    id?: number
-    uid: string
-    description?: string | null
-    createdAt?: Date | string
-  }
-
-  export type CardCreateOrConnectWithoutUserInput = {
-    where: CardWhereUniqueInput
-    create: XOR<CardCreateWithoutUserInput, CardUncheckedCreateWithoutUserInput>
-  }
-
-  export type CardCreateManyUserInputEnvelope = {
-    data: CardCreateManyUserInput | CardCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
   export type AlertUpsertWithWhereUniqueWithoutResolvedByInput = {
     where: AlertWhereUniqueInput
     update: XOR<AlertUpdateWithoutResolvedByInput, AlertUncheckedUpdateWithoutResolvedByInput>
@@ -9664,89 +11114,115 @@ export namespace Prisma {
     resolvedById?: IntNullableFilter<"Alert"> | number | null
   }
 
-  export type CardUpsertWithWhereUniqueWithoutUserInput = {
-    where: CardWhereUniqueInput
-    update: XOR<CardUpdateWithoutUserInput, CardUncheckedUpdateWithoutUserInput>
-    create: XOR<CardCreateWithoutUserInput, CardUncheckedCreateWithoutUserInput>
+  export type RecargaCreateWithoutCartaoInput = {
+    quantidade: number
+    valor: number
+    metodo: string
+    data?: Date | string
   }
 
-  export type CardUpdateWithWhereUniqueWithoutUserInput = {
-    where: CardWhereUniqueInput
-    data: XOR<CardUpdateWithoutUserInput, CardUncheckedUpdateWithoutUserInput>
-  }
-
-  export type CardUpdateManyWithWhereWithoutUserInput = {
-    where: CardScalarWhereInput
-    data: XOR<CardUpdateManyMutationInput, CardUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type CardScalarWhereInput = {
-    AND?: CardScalarWhereInput | CardScalarWhereInput[]
-    OR?: CardScalarWhereInput[]
-    NOT?: CardScalarWhereInput | CardScalarWhereInput[]
-    id?: IntFilter<"Card"> | number
-    uid?: StringFilter<"Card"> | string
-    userId?: IntFilter<"Card"> | number
-    description?: StringNullableFilter<"Card"> | string | null
-    createdAt?: DateTimeFilter<"Card"> | Date | string
-  }
-
-  export type UserCreateWithoutCardsInput = {
-    email: string
-    password: string
-    name: string
-    role?: $Enums.Role
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    resolvedAlerts?: AlertCreateNestedManyWithoutResolvedByInput
-  }
-
-  export type UserUncheckedCreateWithoutCardsInput = {
+  export type RecargaUncheckedCreateWithoutCartaoInput = {
     id?: number
-    email: string
-    password: string
-    name: string
-    role?: $Enums.Role
+    quantidade: number
+    valor: number
+    metodo: string
+    data?: Date | string
+  }
+
+  export type RecargaCreateOrConnectWithoutCartaoInput = {
+    where: RecargaWhereUniqueInput
+    create: XOR<RecargaCreateWithoutCartaoInput, RecargaUncheckedCreateWithoutCartaoInput>
+  }
+
+  export type RecargaCreateManyCartaoInputEnvelope = {
+    data: RecargaCreateManyCartaoInput | RecargaCreateManyCartaoInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type RecargaUpsertWithWhereUniqueWithoutCartaoInput = {
+    where: RecargaWhereUniqueInput
+    update: XOR<RecargaUpdateWithoutCartaoInput, RecargaUncheckedUpdateWithoutCartaoInput>
+    create: XOR<RecargaCreateWithoutCartaoInput, RecargaUncheckedCreateWithoutCartaoInput>
+  }
+
+  export type RecargaUpdateWithWhereUniqueWithoutCartaoInput = {
+    where: RecargaWhereUniqueInput
+    data: XOR<RecargaUpdateWithoutCartaoInput, RecargaUncheckedUpdateWithoutCartaoInput>
+  }
+
+  export type RecargaUpdateManyWithWhereWithoutCartaoInput = {
+    where: RecargaScalarWhereInput
+    data: XOR<RecargaUpdateManyMutationInput, RecargaUncheckedUpdateManyWithoutCartaoInput>
+  }
+
+  export type RecargaScalarWhereInput = {
+    AND?: RecargaScalarWhereInput | RecargaScalarWhereInput[]
+    OR?: RecargaScalarWhereInput[]
+    NOT?: RecargaScalarWhereInput | RecargaScalarWhereInput[]
+    id?: IntFilter<"Recarga"> | number
+    cartaoId?: IntFilter<"Recarga"> | number
+    quantidade?: FloatFilter<"Recarga"> | number
+    valor?: FloatFilter<"Recarga"> | number
+    metodo?: StringFilter<"Recarga"> | string
+    data?: DateTimeFilter<"Recarga"> | Date | string
+  }
+
+  export type CardCreateWithoutRecargasInput = {
+    uid: string
+    proprietario: string
+    tipo?: string
+    saldo: number
+    status?: string
+    description?: string | null
     createdAt?: Date | string
-    updatedAt?: Date | string
-    resolvedAlerts?: AlertUncheckedCreateNestedManyWithoutResolvedByInput
   }
 
-  export type UserCreateOrConnectWithoutCardsInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutCardsInput, UserUncheckedCreateWithoutCardsInput>
+  export type CardUncheckedCreateWithoutRecargasInput = {
+    id?: number
+    uid: string
+    proprietario: string
+    tipo?: string
+    saldo: number
+    status?: string
+    description?: string | null
+    createdAt?: Date | string
   }
 
-  export type UserUpsertWithoutCardsInput = {
-    update: XOR<UserUpdateWithoutCardsInput, UserUncheckedUpdateWithoutCardsInput>
-    create: XOR<UserCreateWithoutCardsInput, UserUncheckedCreateWithoutCardsInput>
-    where?: UserWhereInput
+  export type CardCreateOrConnectWithoutRecargasInput = {
+    where: CardWhereUniqueInput
+    create: XOR<CardCreateWithoutRecargasInput, CardUncheckedCreateWithoutRecargasInput>
   }
 
-  export type UserUpdateToOneWithWhereWithoutCardsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutCardsInput, UserUncheckedUpdateWithoutCardsInput>
+  export type CardUpsertWithoutRecargasInput = {
+    update: XOR<CardUpdateWithoutRecargasInput, CardUncheckedUpdateWithoutRecargasInput>
+    create: XOR<CardCreateWithoutRecargasInput, CardUncheckedCreateWithoutRecargasInput>
+    where?: CardWhereInput
   }
 
-  export type UserUpdateWithoutCardsInput = {
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  export type CardUpdateToOneWithWhereWithoutRecargasInput = {
+    where?: CardWhereInput
+    data: XOR<CardUpdateWithoutRecargasInput, CardUncheckedUpdateWithoutRecargasInput>
+  }
+
+  export type CardUpdateWithoutRecargasInput = {
+    uid?: StringFieldUpdateOperationsInput | string
+    proprietario?: StringFieldUpdateOperationsInput | string
+    tipo?: StringFieldUpdateOperationsInput | string
+    saldo?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    resolvedAlerts?: AlertUpdateManyWithoutResolvedByNestedInput
   }
 
-  export type UserUncheckedUpdateWithoutCardsInput = {
+  export type CardUncheckedUpdateWithoutRecargasInput = {
     id?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    uid?: StringFieldUpdateOperationsInput | string
+    proprietario?: StringFieldUpdateOperationsInput | string
+    tipo?: StringFieldUpdateOperationsInput | string
+    saldo?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    resolvedAlerts?: AlertUncheckedUpdateManyWithoutResolvedByNestedInput
   }
 
   export type SensorDataCreateWithoutStationInput = {
@@ -10063,7 +11539,6 @@ export namespace Prisma {
     role?: $Enums.Role
     createdAt?: Date | string
     updatedAt?: Date | string
-    cards?: CardCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutResolvedAlertsInput = {
@@ -10074,7 +11549,6 @@ export namespace Prisma {
     role?: $Enums.Role
     createdAt?: Date | string
     updatedAt?: Date | string
-    cards?: CardUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutResolvedAlertsInput = {
@@ -10180,7 +11654,6 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    cards?: CardUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutResolvedAlertsInput = {
@@ -10191,7 +11664,6 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    cards?: CardUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AlertCreateManyResolvedByInput = {
@@ -10203,13 +11675,6 @@ export namespace Prisma {
     status?: $Enums.AlertStatus
     createdAt?: Date | string
     resolvedAt?: Date | string | null
-  }
-
-  export type CardCreateManyUserInput = {
-    id?: number
-    uid: string
-    description?: string | null
-    createdAt?: Date | string
   }
 
   export type AlertUpdateWithoutResolvedByInput = {
@@ -10244,24 +11709,35 @@ export namespace Prisma {
     resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
-  export type CardUpdateWithoutUserInput = {
-    uid?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type RecargaCreateManyCartaoInput = {
+    id?: number
+    quantidade: number
+    valor: number
+    metodo: string
+    data?: Date | string
   }
 
-  export type CardUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    uid?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type RecargaUpdateWithoutCartaoInput = {
+    quantidade?: FloatFieldUpdateOperationsInput | number
+    valor?: FloatFieldUpdateOperationsInput | number
+    metodo?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type CardUncheckedUpdateManyWithoutUserInput = {
+  export type RecargaUncheckedUpdateWithoutCartaoInput = {
     id?: IntFieldUpdateOperationsInput | number
-    uid?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    quantidade?: FloatFieldUpdateOperationsInput | number
+    valor?: FloatFieldUpdateOperationsInput | number
+    metodo?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RecargaUncheckedUpdateManyWithoutCartaoInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    quantidade?: FloatFieldUpdateOperationsInput | number
+    valor?: FloatFieldUpdateOperationsInput | number
+    metodo?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SensorDataCreateManyStationInput = {

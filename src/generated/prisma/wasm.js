@@ -130,9 +130,21 @@ exports.Prisma.UserScalarFieldEnum = {
 exports.Prisma.CardScalarFieldEnum = {
   id: 'id',
   uid: 'uid',
-  userId: 'userId',
+  proprietario: 'proprietario',
+  tipo: 'tipo',
+  saldo: 'saldo',
+  status: 'status',
   description: 'description',
   createdAt: 'createdAt'
+};
+
+exports.Prisma.RecargaScalarFieldEnum = {
+  id: 'id',
+  cartaoId: 'cartaoId',
+  quantidade: 'quantidade',
+  valor: 'valor',
+  metodo: 'metodo',
+  data: 'data'
 };
 
 exports.Prisma.StationScalarFieldEnum = {
@@ -223,6 +235,7 @@ exports.AlertStatus = exports.$Enums.AlertStatus = {
 exports.Prisma.ModelName = {
   User: 'User',
   Card: 'Card',
+  Recarga: 'Recarga',
   Station: 'Station',
   SensorData: 'SensorData',
   Alert: 'Alert'

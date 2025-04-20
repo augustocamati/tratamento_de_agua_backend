@@ -28,6 +28,30 @@ model User {
   resolvedAlerts Alert[] @relation("ResolvedBy")
 }
 
+model Card {
+  id           Int      @id @default(autoincrement())
+  uid          String   @unique
+  proprietario String
+  tipo         String   @default("Residencial")
+  saldo        Float
+  status       String   @default("Ativo")
+  description  String?
+  createdAt    DateTime @default(now())
+
+  recargas Recarga[] // 👈 nova relação
+}
+
+model Recarga {
+  id         Int      @id @default(autoincrement())
+  cartaoId   Int
+  quantidade Float
+  valor      Float
+  metodo     String
+  data       DateTime @default(now())
+
+  cartao Card @relation(fields: [cartaoId], references: [id])
+}
+
 model Station {
   id          Int           @id @default(autoincrement())
   name        String
