@@ -6,6 +6,7 @@ import authRoutes from "./routes/authRoutes.js"
 import sensorRoutes from "./routes/sensorRoutes.js"
 import alertRoutes from "./routes/alertRoutes.js"
 import cardRoutes from "./routes/cardRoutes.js"
+import recargaRoutes from "./routes/recargaRoutes.js"
 
 const app = express()
 
@@ -21,6 +22,9 @@ app.use(json())
 app.get("/", (req, res) => {
   res.json({status:"ok",message:"API funcionando na Vercel!"})
 })
+
+app.use("/api/recargas", recargaRoutes)
+
 app.use("/api/cards", cardRoutes)
 app.use("/api/alerts", alertRoutes)
 app.use("/api/auth", authRoutes)
