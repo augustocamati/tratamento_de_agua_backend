@@ -16,6 +16,26 @@ async function main() {
     },
   })
 
+const card = await prisma.card.create({
+  data: {
+    uid: "ABC123456",
+    proprietario: "João Silva",
+    tipo: "Residencial",
+    saldo: 250,
+    status: "Ativo",
+    description: "Cartão de João para consumo doméstico",
+  },
+})
+
+await prisma.recarga.create({
+  data: {
+    cartaoId: card.id,
+    quantidade: 100,
+    valor: 350,
+    metodo: "Cartão de Crédito",
+  },
+})
+
   const userTech = await prisma.user.create({
     data: {
       name: "Gerente do Posto",
