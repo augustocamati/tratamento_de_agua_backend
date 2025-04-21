@@ -6,10 +6,10 @@ const router = Router()
 
 router.post("/",  async (req, res) => {
   try {
-    const { uid, userId, description } = req.body
+    const { uid, proprietario, status="ativo", saldo=300, description,tipo } = req.body
 
     const card = await prisma.card.create({
-      data: { uid, userId, description },
+      data: { uid, proprietario,status,saldo, description,tipo },
     })
 
     res.status(201).json({ message: "Cartão criado com sucesso", card })
@@ -22,9 +22,7 @@ router.post("/",  async (req, res) => {
 router.get("/",  async (req, res) => {
   try {
     const cards = await prisma.card.findMany({
-      include: {
-        user: { select: { name: true, email: true } },
-      },
+    
       orderBy: { createdAt: "desc" },
     })
     res.json(cards)
