@@ -6,7 +6,7 @@ import checkSensorLimits from "../utils/checkSensorLimits.js"
 
 const router = Router()
 
-router.post("/data", validateApiKey, async (req, res) => {
+router.post("/data", async (req, res) => {
   try {
     const { turbidity, tds, flowRate, totalFlow } = req.body
     const stationId = parseInt(req.body.stationId)
@@ -68,7 +68,7 @@ router.post("/data", validateApiKey, async (req, res) => {
   }
 })
 
-router.get("/data/latest", authenticate, async (req, res) => {
+router.get("/data/latest", async (req, res) => {
   try {
     const latestData = await prisma.sensorData.findFirst({
       orderBy: { timestamp: "desc" },
@@ -88,7 +88,7 @@ router.get("/data/latest", authenticate, async (req, res) => {
   }
 })
 
-router.get("/data/station/:stationId", authenticate, async (req, res) => {
+router.get("/data/station/:stationId", async (req, res) => {
   try {
     const stationId = parseInt(req.params.stationId)
     const data = await prisma.sensorData.findMany({
